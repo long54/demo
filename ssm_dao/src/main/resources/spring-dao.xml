@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--&lt;!&ndash;引入jdbc配置文件&ndash;&gt;-->
+    <!--<context:property-placeholder location="classpath:jdbcinfo.properties"/>-->
+
+    <!--数据源-->
+    <bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="root"></property>
+        <property name="url" value="jdbc:mysql:///ssm_exam"></property>
+    </bean>
+
+    <!--配置sqlSessionFactoryBean-->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入数据源-->
+        <property name="dataSource" ref="driverManagerDataSource"></property>
+        <!--导入mybatis.xml-->
+        <property name="configLocation" value="classpath:mybatis.xml"></property>
+    </bean>
+
+    <!--配置dao代理对象到核心容器-->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--包扫描-->
+        <property name="basePackage" value="com.hero.dao"></property>
+    </bean>
+
+</beans>
