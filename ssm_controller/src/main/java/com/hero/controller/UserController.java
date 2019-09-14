@@ -62,6 +62,7 @@ public class UserController {
     @RequestMapping("/deletdById")
     public void deletdById(int cid){
 
+        System.out.println("666666");
         System.out.println("cid="+cid);
 
     }
